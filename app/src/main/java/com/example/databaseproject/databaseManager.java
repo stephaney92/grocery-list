@@ -34,6 +34,16 @@ public class databaseManager extends SQLiteOpenHelper {
         db.close();
 
     }
+    //put delete item here
+
+    //updating database
+    public void updateByItem(String category, String item){
+        SQLiteDatabase db = getWritableDatabase();
+        String sql = "update GroceryTable set category = '"+category+"'";
+        sql += "where item = '"+item+"'";
+        db.execSQL(sql);
+        db.close();
+    }
     //creates an array list of all titles in database
     public ArrayList<String> getItem(){
 

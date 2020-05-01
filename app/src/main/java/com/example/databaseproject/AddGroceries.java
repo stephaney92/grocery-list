@@ -15,6 +15,7 @@ public class AddGroceries extends AppCompatActivity{
     private EditText foodCategory;
     private EditText itemOnList;
     private Button addButton;
+    private boolean add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +29,15 @@ public class AddGroceries extends AppCompatActivity{
 
         //the main page grabs this i and sends it to open
         Intent i = getIntent();
-        boolean add = i.getBooleanExtra("ADD", true);
+        add = i.getBooleanExtra("ADD", true);
         //if add is true, adding new item, else false then editing
         if (add){
             //changes add button text
             addButton.setText("ADD");
         } else {
             addButton.setText("EDIT");
+            foodCategory.setText(i.getStringExtra("CATEGORY"));
+            itemOnList.setText(i.getStringExtra("ITEM"));
         }
 
     }
@@ -47,8 +50,13 @@ public class AddGroceries extends AppCompatActivity{
 
         //grabbing the database manager
         databaseManager dbm = new databaseManager(this);
-        //inserts into database
-        dbm.insert(category,item);
+
+        if(add) {
+            //inserts into database
+            dbm.insert(category, item);
+        }else {
+            dbm.updateByItem(category,item);
+        }
         //closes activity page
         finish();
 

@@ -36,6 +36,8 @@ public class ViewBoth extends AppCompatActivity {
         Intent i = new Intent(this, AddGroceries.class);
         //test if you are adding or editing, this i edits
         i.putExtra("ADD", false);
+        i.putExtra("CATEGORY", categoryView.getText().toString());
+        i.putExtra("ITEM", itemView.getText().toString());
         startActivity(i);
 
     }
