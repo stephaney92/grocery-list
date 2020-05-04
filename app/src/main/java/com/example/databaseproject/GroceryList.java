@@ -26,7 +26,7 @@ public class GroceryList extends AppCompatActivity {
         //removes everything that is already in the scroll view
         scrollView.removeAllViewsInLayout();
 
-        databaseManager dbm = new databaseManager(this);
+        final databaseManager dbm = new databaseManager(this);
         ArrayList<String> list = dbm.getItem(); //fills list with all the items in the database
         GridLayout grid = new GridLayout(this);
         grid.setColumnCount(1);
@@ -50,6 +50,15 @@ public class GroceryList extends AppCompatActivity {
                     startActivity(i);
                 }
 
+            });
+            text.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    String deleteItem = ((TextView)view).getText().toString();
+                    dbm.delete(deleteItem);
+                    return true;
+
+                }
             });
             grid.addView(text); //adds the food items to the view
         }
